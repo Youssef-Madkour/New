@@ -17,22 +17,3 @@ function Layout() {
 }
 
 export default Layout;
-
-// function Layout() {
-//   return (
-//     <div
-//       style={{
-//         display: 'flex',
-//         height: '100vh',
-//       }}
-//     >
-//       <Sider />
-//       <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
-//         <Header />
-//         <main style={{ padding: 20, overflow: 'auto' }}>
-//           <Outlet />
-//         </main>
-//       </div>
-//     </div>
-//   );
-// }
