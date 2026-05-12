@@ -36,33 +36,3 @@ import { useLocation, useNavigate } from 'react-router-dom';
 export default ItemDetailsPage;
 
 
-
-// return (
-//     <div style={{ display: 'flex', flexDirection: 'column' }}>
-//       <button
-//         onClick={() => navigate(-1)}
-//         style={{ marginBottom: 20, width: 'fit-content' }}
-//       >
-//         Back
-//       </button>
-//       {!item ? (
-//         <div>Item not found</div>
-//       ) : (
-//         <>
-//           <img
-//             src={item.icon}
-//             alt=''
-//             style={{
-//               width: 100,
-//               height: 100,
-//             }}
-//           />
-//           <h1>{item.title}</h1>
-//           <p>{item.desc}</p>
-//           <p>
-//             <strong>Price:</strong> {item.price}
-//           </p>
-//         </>
-//       )}
-//     </div>
-//   );

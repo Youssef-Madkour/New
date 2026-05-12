@@ -28,34 +28,3 @@ const HomePage = () => {
 };
 
 export default HomePage;
-
-//     <div>
-//       <h1>Electronics</h1>
-//       {MockItems.map((item) => (
-//         <div
-//           key={item.id}
-//           style={{
-//             border: '1px solid #ffffff',
-//             padding: 15,
-//             marginBottom: 10,
-//             borderRadius: 4,
-//           }}
-//>
-//           <img
-//             src={item.icon}
-//             alt=''
-//             style={{
-//               width: 100,
-//               height: 100,
-//             }}
-//           />
-//           <h3>{item.title}</h3>
-//           <p>{item.desc}</p>
-//           <Link to={`/${item.id}`} state={{ item }}>
-//             View Details
-//           </Link>
-//         </div>
-//       ))}
-//     </div>
-//   );
-// };
