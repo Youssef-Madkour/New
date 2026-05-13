@@ -2,28 +2,28 @@ import { Link, useLocation } from 'react-router-dom';
 
 const menuItems = [
   { label: 'Home', path: '/' },
-  { label: 'About', path: '/about' },
-  { label: 'Contact', path: '/contact' }
+  // { label: 'About', path: '/about' },
+  // { label: 'Contact', path: '/contact' }
 ];
 
 function Sider() {
   const location = useLocation();
 
   return (
-    
-    <aside className="w-[200px] bg-[#001529] text-white py-5 px-0">
-      
-      {menuItems.map(item => {
+    <aside className='w-50 bg-[#001529] text-white py-5 px-0'>
+      {menuItems.map((item) => {
         const isActive = location.pathname === item.path;
-         return (
+        return (
           <Link
             key={item.path}
             to={item.path}
             className={`
               block px-5 py-3 no-underline
-              ${isActive 
-                ? 'text-[#1890ff] bg-[#1890ff22]' 
-                : 'text-white bg-transparent hover:bg-[#1890ff22]'}
+              ${
+                isActive
+                  ? 'text-[#1890ff] bg-[#1890ff22]'
+                  : 'text-white bg-transparent hover:bg-[#1890ff22]'
+              }
             `}
           >
             {item.label}
@@ -36,11 +36,9 @@ function Sider() {
 
 export default Sider;
 
-
-
-// <aside style={{ 
-//       width: 200, 
-//       background: '#001529', 
+// <aside style={{
+//       width: 200,
+//       background: '#001529',
 //       color: 'white',
 //       padding: '20px 0'
 //     }}>
