@@ -14,7 +14,7 @@ function ItemDetailsPage() {
         Back
       </button>
       {!item ? (
-        <div className='text-red-500'>Item not found</div>
+        <div className='text-red-500'>Item not found!</div>
       ) : (
         <>
           <img src={item.icon} alt='' className='size-25' />
