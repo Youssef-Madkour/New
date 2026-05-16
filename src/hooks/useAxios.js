@@ -24,3 +24,6 @@ export function useAxios(url) {
 
   return { data, loading, error };
 }
+
+//  git config --global user.name "Youssef Madkour"
+//  git config --global user.email youssefmadkour2003@gmail.com
