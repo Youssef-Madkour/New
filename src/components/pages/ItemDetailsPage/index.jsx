@@ -10,8 +10,7 @@ function ItemDetailsPage() {
   if (!user) {
     return (
         <Link to="/" className="text-blue-600 ml-2">Go back</Link>
-      
-    );
+       );
   }
 
   return (
