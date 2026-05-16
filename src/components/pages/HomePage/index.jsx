@@ -1,24 +1,10 @@
 import { Link } from 'react-router-dom';
 import { useFetch } from '../../../hooks/useFetch';
 
+
 function HomePage() {
   const { data: users, loading, error } = useFetch('https://jsonplaceholder.typicode.com/users');
-
-  if (loading) {
-    return (
-      <div className="flex justify-center items-center h-64">
-        <p className="text-xl">Loading users...</p>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="flex justify-center items-center h-64">
-        <p className="text-xl text-red-500">Error: {error}</p>
-      </div>
-    );
-  }
+ 
 
   return (
     <div className="p-6">
