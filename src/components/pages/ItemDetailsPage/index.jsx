@@ -1,26 +1,10 @@
 import { useParams, Link } from 'react-router-dom';
-import { useFetch } from '../../../hooks/useFetch';
+import { useAxios } from '../../../hooks/useAxios';
+
 
 function ItemDetailsPage() {
   const { id } = useParams();
-  const { data: users, loading, error } = useFetch('https://jsonplaceholder.typicode.com/users');
-
-  if (loading) {
-    return (
-      <div className="flex justify-center items-center h-64">
-        <p className="text-xl">Loading user details...</p>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="flex justify-center items-center h-64">
-        <p className="text-xl text-red-500">Error: {error}</p>
-      </div>
-    );
-  }
-
+  const { data: users, loading, error } = useAxios('https://jsonplaceholder.typicode.com/users');
   const user = users?.find(u => u.id === parseInt(id));
 
   if (!user) {
