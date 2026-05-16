@@ -2,12 +2,12 @@ import { Link } from 'react-router-dom';
 import { useFetch } from '../../../hooks/useFetch';
 
 function HomePage() {
-  const { data: products, loading, error } = useFetch('/data/products.json');
+  const { data: users, loading, error } = useFetch('https://jsonplaceholder.typicode.com/users');
 
   if (loading) {
     return (
       <div className="flex justify-center items-center h-64">
-        <p className="text-xl">Loading products...</p>
+        <p className="text-xl">Loading users...</p>
       </div>
     );
   }
@@ -22,22 +22,19 @@ function HomePage() {
 
   return (
     <div className="p-6">
-      <h1 className="text-3xl font-bold text-center mb-8">Our Products</h1>
+      <h1 className="text-3xl font-bold text-center mb-8">Users List</h1>
       
-      <div className="grid grid-cols-2 gap-6">
-        {products?.map(product => (
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {users?.map(user => (
           <Link 
-            to={`/item/${product.id}`} 
-            key={product.id}
-            className="border rounded-lg p-4 shadow hover:shadow-xl transition cursor-pointer"
+            to={`/item/${user.id}`} 
+            key={user.id}
+            className="border rounded-lg p-6 shadow hover:shadow-xl transition cursor-pointer bg-white"
           >
-            <img 
-              src={product.icon} 
-              alt={product.title} 
-              className="h-48 w-full object-contain rounded mb-4"
-            />
-            <h3 className="font-bold text-lg text-center">{product.title}</h3>
-            <p className="text-red-600 text-sm text-center mt-2">{product.desc}</p>
+            <h3 className="font-bold text-xl text-blue-600">{user.name}</h3>
+            <p className="text-gray-600 mt-2">@{user.username}</p>
+            <p className="text-gray-500 text-sm mt-1">{user.email}</p>
+            <p className="text-gray-500 text-sm">{user.company.name}</p>
           </Link>
         ))}
       </div>

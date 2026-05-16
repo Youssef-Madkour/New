@@ -3,12 +3,12 @@ import { useFetch } from '../../../hooks/useFetch';
 
 function ItemDetailsPage() {
   const { id } = useParams();
-  const { data: products, loading, error } = useFetch('/data/products.json');
+  const { data: users, loading, error } = useFetch('https://jsonplaceholder.typicode.com/users');
 
   if (loading) {
     return (
       <div className="flex justify-center items-center h-64">
-        <p className="text-xl">Loading product details...</p>
+        <p className="text-xl">Loading user details...</p>
       </div>
     );
   }
@@ -21,39 +21,43 @@ function ItemDetailsPage() {
     );
   }
 
-  const product = products?.find(p => p.id === parseInt(id));
+  const user = users?.find(u => u.id === parseInt(id));
 
-  if (!product) {
+  if (!user) {
     return (
       <div className="flex justify-center items-center h-64">
-        <p className="text-xl">Product not found</p>
+        <p className="text-xl">User not found</p>
         <Link to="/" className="text-blue-600 ml-2">Go back</Link>
       </div>
     );
   }
 
   return (
-    <div className="max-w-4xl mx-auto p-6">
+    <div className="max-w-2xl mx-auto p-6">
       <Link to="/" className="text-blue-600 hover:underline mb-4 inline-block">
-        ← Back to products
+        ← Back to users
       </Link>
 
-      <div className="grid md:grid-cols-2 gap-8 mt-4">
-        <img 
-          src={product.icon} 
-          alt={product.title} 
-          className="w-full h-96 object-contain rounded "
-        />
+      <div className="border rounded-lg p-8 shadow bg-white mt-4">
+        <h1 className="text-3xl font-bold mb-2">{user.name}</h1>
+        <p className="text-gray-500 text-lg mb-6">@{user.username}</p>
         
-        <div className="flex flex-col justify-center">
-          <h1 className="text-3xl font-bold mb-4">{product.title}</h1>
-          <p className="text-gray-600 text-lg mb-6">{product.desc}</p>
+        <div className="space-y-3">
+          <p><span className="font-bold">Email:</span> {user.email}</p>
+          <p><span className="font-bold">Phone:</span> {user.phone}</p>
+          <p><span className="font-bold">Website:</span> <a href={`https://${user.website}`} className="text-blue-600">{user.website}</a></p>
           
-          <p className="text-4xl font-bold text-green-600 mb-8">{product.price}</p>
-          
-           <button className="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition">
-            Checkout
-          </button>
+          <div className="mt-6 pt-6 border-t">
+            <h3 className="font-bold text-lg mb-2">Company</h3>
+            <p>{user.company.name}</p>
+            <p className="text-gray-600 text-sm italic">"{user.company.catchPhrase}"</p>
+          </div>
+
+          <div className="mt-4 pt-4 border-t">
+            <h3 className="font-bold text-lg mb-2">Address</h3>
+            <p>{user.address.street}, {user.address.suite}</p>
+            <p>{user.address.city}, {user.address.zipcode}</p>
+          </div>
         </div>
       </div>
     </div>
@@ -61,6 +65,3 @@ function ItemDetailsPage() {
 }
 
 export default ItemDetailsPage;
-
-
-
