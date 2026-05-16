@@ -9,10 +9,8 @@ function ItemDetailsPage() {
 
   if (!user) {
     return (
-      <div className="flex justify-center items-center h-64">
-        <p className="text-xl">User not found</p>
         <Link to="/" className="text-blue-600 ml-2">Go back</Link>
-      </div>
+      
     );
   }
 
