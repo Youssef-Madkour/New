@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useFetch } from '../../../hooks/useFetch';
 
-function HomePage() {
+function Storepage() {
   const { data: products, loading, error } = useFetch('/data/products.json');
 
   if (loading) {
@@ -45,4 +45,4 @@ function HomePage() {
   );
 }
 
-export default HomePage;
+export default Storepage;
