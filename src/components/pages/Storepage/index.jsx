@@ -26,19 +26,22 @@ function Storepage() {
       
       <div className="grid grid-cols-2 gap-6">
         {products?.map(product => (
-          <Link 
-            to={`/item/${product.id}`} 
+          <div className="border rounded-lg p-4 shadow hover:shadow-xl transition cursor-pointer text-center"> 
+            {/* to={`/item/${product.id}`} 
             key={product.id}
             className="border rounded-lg p-4 shadow hover:shadow-xl transition cursor-pointer"
-          >
+           */}
             <img 
               src={product.icon} 
               alt={product.title} 
               className="h-48 w-full object-contain rounded mb-4"
             />
-            <h3 className="font-bold text-lg text-center">{product.title}</h3>
-            <p className="text-red-600 text-sm text-center mt-2">{product.desc}</p>
-          </Link>
+            <h3 className="font-bold text-lg ">{product.title}</h3>
+            <p className="text-red-600 text-sm  mt-2">{product.desc}</p>
+            <button className=" bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition mt-2 ">
+            Checkout
+          </button>
+          </div>
         ))}
       </div>
     </div>
