@@ -5,10 +5,8 @@ import { useFetch } from '../../../hooks/useFetch';
 function Storepage() {
   const { data: products } = useFetch('/data/products.json');
   const [counts, setCounts] = useState({});
-
   const handleClick = (productId) => {
-    setCounts(prev => ({ ...prev, [productId]: (prev[productId] || 0) + 1 }));
-  };
+    setCounts(prev => ({ ...prev, [productId]: (prev[productId] || 0) + 1 })); };
 
   return (
     <div className="p-6">
