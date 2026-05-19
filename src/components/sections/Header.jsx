@@ -7,11 +7,3 @@ function Header() {
 }
 
 export default Header;
-
-//  style={{
-//         background: '#001529',
-//         color: 'white',
-//         display: 'flex',
-//         alignItems: 'center',
-//         padding: '20px',
-       
