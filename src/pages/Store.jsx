@@ -1,6 +1,6 @@
 
-import Storepage from '../components/pages/Storepage';
+// import Storepage from '../components/pages/Storepage';
 
-const Store = () => <Storepage/>;  
+// const Store = () => <Storepage/>;  
 
-export default Store;
+// export default Store;

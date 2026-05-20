@@ -4,10 +4,13 @@ import Home from './pages/Home';
 import Details from './pages/Details';           
 import StorePage from './components/pages/Storepage';
 import NotFound from './pages/NotFound';
+import Product from './pages/Product';
+import Cart from './pages/cart'
+
 
 function App() {
   return (
-// dasdkldandaslda
+
 
     <BrowserRouter>
       <Routes>
@@ -15,6 +18,9 @@ function App() {
           <Route index element={<Home />} />
           <Route path='item/:id' element={<Details />} />           
           <Route path='store' element={<StorePage />} />
+          <Route path='Product' element={<Product/>} />
+          
+          <Route path='Cart' element={<Cart/>} />
         </Route>
         <Route path='*' element={<NotFound />} />
       </Routes>
