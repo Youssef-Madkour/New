@@ -17,7 +17,7 @@ function Storepage() {
     }));
   };
 
-  // Calculate total items in cart
+  
   const totalCount = Object.values(counts).reduce(
     (sum, count) => sum + count,
     0
@@ -48,29 +48,13 @@ function Storepage() {
               />
               <h3 className='font-bold text-lg'>{product.title}</h3>
               <p className='text-red-600 text-sm mt-2'>{product.desc}</p>
+              <p className='font-bold text-lg text-center'>{product.price} </p>
             </Link>
-
-            {/* Quantity Counter */}
-            <div className='flex items-center justify-center gap-4 mt-4'>
-              <button
-                onClick={() => decrease(product.id)}
-                className='bg-gray-200 text-gray-700 w-10 h-10 rounded-full hover:bg-gray-300 transition text-xl font-bold'
-              >
-                −
-              </button>
-
-              <span className='text-xl font-bold w-8'>
-                {counts[product.id] || 0}
-              </span>
-
-              <button
-                onClick={() => increase(product.id)}
-                className='bg-blue-600 text-white w-10 h-10 rounded-full hover:bg-blue-700 transition text-xl font-bold'
-              >
-                +
+            <button className='bg-blue-600 text-white w-50 h-10 rounded-full hover:bg-blue-700 transition text-xl font-bold'>
+               Checkout
               </button>
             </div>
-          </div>
+          
         ))}
       </div>
     </div>
