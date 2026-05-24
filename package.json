@@ -14,12 +14,15 @@
     "update": "git add . && git commit -m 'update' && git push && npm run deploy"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^2.12.0",
     "@tailwindcss/vite": "^4.3.0",
     "axios": "^1.16.1",
     "axois": "^0.0.1-security",
     "react": "^19.2.5",
     "react-dom": "^19.2.5",
+    "react-redux": "^9.3.0",
     "react-router-dom": "^7.15.1",
+    "redux-persist": "^6.0.0",
     "tailwindcss": "^4.3.0"
   },
   "devDependencies": {

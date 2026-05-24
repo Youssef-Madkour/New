@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import axios from 'axios';
-import { useCart } from '../../../context/CartContext.js';
+import { addToCart } from '../../../redux/cartSlice';
 
 const ProductDetail = () => {
   const { id } = useParams();
-  const { addToCart } = useCart();
+  const dispatch = useDispatch();
   const [data, setData] = useState({ id: null, product: null, error: false });
 
   useEffect(() => {
@@ -53,7 +54,7 @@ const ProductDetail = () => {
           ${product.price}
         </p>
         <button
-          onClick={() => addToCart(product.id)}
+          onClick={() => dispatch(addToCart(product.id))}
           className='bg-b6 text-white px-6 py-3 rounded-lg hover:bg-b7 transition w-full'
         >
           Add to Cart

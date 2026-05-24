@@ -37,28 +37,3 @@ function Sider() {
 }
 
 export default Sider;
-
-// <aside style={{
-//       width: 200,
-//       background: '#001529',
-//       color: 'white',
-//       padding: '20px 0'
-//     }}>
-//       {menuItems.map(item => (
-//         <Link
-//           key={item.path}
-//           to={item.path}
-//           style={{
-//             display: 'block',
-//             padding: '12px 20px',
-//             color: location.pathname === item.path ? '#1890ff' : 'white',
-//             textDecoration: 'none',
-//             background: location.pathname === item.path ? '#1890ff22' : 'none'
-//           }}
-//         >
-//           {item.label}
-//         </Link>
-//       ))}
-//     </aside>
-//   );
-// }
