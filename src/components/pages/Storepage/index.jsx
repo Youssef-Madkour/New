@@ -27,7 +27,7 @@ function Storepage() {
     <div className='p-6'>
       <div className='relative mb-8'>
         <h1 className='text-3xl font-bold text-center'>Our Products</h1>
-        <div className='absolute right-0 top-1/2 -translate-y-1/2 bg-blue-600 text-white px-6 py-6 rounded-full flex items-center gap-2 shadow text-sm'>
+        <div className='absolute right-0 top-1/2 -translate-y-1/2 bg-b6 text-white px-6 py-6 rounded-full flex items-center gap-2 shadow text-sm'>
           <span>🛒</span>
           <span className='font-bold'>{totalCount}</span>
         </div>
@@ -47,10 +47,10 @@ function Storepage() {
                 className='h-48 w-full object-contain rounded mb-4'
               />
               <h3 className='font-bold text-lg'>{product.title}</h3>
-              <p className='text-red-600 text-sm mt-2'>{product.desc}</p>
+              <p className='text-r6 text-sm mt-2'>{product.desc}</p>
               <p className='font-bold text-lg text-center'>{product.price} </p>
             </Link>
-            <button className='bg-blue-600 text-white w-50 h-10 rounded-full hover:bg-blue-700 transition text-xl font-bold'>
+            <button className='bg-b6 text-white w-50 h-10 rounded-full hover:bg-b7 transition text-xl font-bold'>
                Checkout
               </button>
             </div>

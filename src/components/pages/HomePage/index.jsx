@@ -18,9 +18,9 @@ function HomePage() {
             className="border rounded-lg p-6 shadow hover:shadow-xl transition cursor-pointer bg-white"
           >
             <h3 className="font-bold text-xl text-blue-600">{user.name}</h3>
-            <p className="text-gray-600 mt-2">@{user.username}</p>
-            <p className="text-gray-500 text-sm mt-1">{user.email}</p>
-            <p className="text-gray-500 text-sm">{user.company.name}</p>
+            <p className="text-gy6 mt-2">@{user.username}</p>
+            <p className="text-gy5 text-sm mt-1">{user.email}</p>
+            <p className="text-gy5 text-sm">{user.company.name}</p>
           </Link>
         ))}
       </div>

@@ -1,13 +1,14 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useProducts } from '../../../context/ProductsContext.js';
-import { useCart } from '../../../context/CartContext.js';
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../../Redux/cartSlice";
+import { useProducts } from '../../../context/ProductsContext';
 
 const PAGE_SIZE = 10;
 
 const Pro = () => {
   const { products, loading, error } = useProducts();
-  const { addToCart } = useCart();
+  const dispatch = useDispatch();
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
 
   const visibleProducts = products.slice(0, visibleCount);
@@ -32,19 +33,19 @@ const Pro = () => {
               alt={product.title}
             />
 
-            <p className='text-gray-600'>{product.category}</p>
-            <p className='text-green-600 font-bold text-lg'>${product.price}</p>
+            <p className='text-gy6'>{product.category}</p>
+            <p className='text-gn6 font-bold text-lg'>${product.price}</p>
 
             <button
-              onClick={() => addToCart(product.id)}
-              className='bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition mt-4 w-full'
+              onClick={() => dispatch(addToCart(product.id))}
+              className='bg-b6 text-white px-6 py-2 rounded-lg hover:bg-b7 transition mt-4 w-full'
             >
               Checkout
             </button>
 
             <Link
               to={`/product/${product.id}`}
-              className='text-blue-600 text-sm mt-2 block hover:underline'
+              className='text-b6 text-sm mt-2 block hover:underline'
             >
               View Product →
             </Link>
@@ -56,7 +57,7 @@ const Pro = () => {
         <div>
           <button
             onClick={() => setVisibleCount((c) => c + PAGE_SIZE)}
-            className='mt-6 bg-gray-800 text-white px-6 py-2 rounded-lg hover:bg-gray-700 transition block mx-auto'
+            className='mt-6 bg-gy8 text-white px-6 py-2 rounded-lg hover:bg-gray-700 transition block mx-auto'
           >
             Load More
           </button>

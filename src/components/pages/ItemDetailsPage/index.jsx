@@ -23,13 +23,13 @@ function ItemDetailsPage() {
 
   return (
     <div className='max-w-2xl mx-auto p-6'>
-      <Link to='/' className='text-blue-600 hover:underline mb-4 inline-block'>
+      <Link to='/' className='text-b6 hover:underline mb-4 inline-block'>
         ← Back to users
       </Link>
 
       <div className='border rounded-lg p-8 shadow bg-white mt-4'>
         <h1 className='text-3xl font-bold mb-2'>{user?.name}</h1>
-        <p className='text-gray-500 text-lg mb-6'>@{user?.username}</p>
+        <p className='text-gy5 text-lg mb-6'>@{user?.username}</p>
 
         <div className='space-y-3'>
           <p>
@@ -48,7 +48,7 @@ function ItemDetailsPage() {
           <div className='mt-6 pt-6 border-t'>
             <h3 className='font-bold text-lg mb-2'>Company</h3>
             <p>{user?.company.name}</p>
-            <p className='text-gray-600 text-sm italic'>
+            <p className='text-gy6 text-sm italic'>
               "{user?.company.catchPhrase}"
             </p>
           </div>
