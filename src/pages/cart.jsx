@@ -1,12 +1,11 @@
 import { useMemo } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { increaseQty, decreaseQty } from "../Redux/cartSlice";
+import { useCartStore } from '../Zustand/cartStore';
+// import { useCartStore } from '../../../Zustand/cartStore';
 import { useProducts } from '../context/ProductsContext.js';
 
-
-const Cart = () => {
-  const dispatch = useDispatch();
-  const cart = useSelector((state) => state);
+const Cart = () => {  const cart = useCartStore((state) => state);
+  const increaseQty = useCartStore((state) => state.increaseQty);
+  const decreaseQty = useCartStore((state) => state.decreaseQty);
   const { getProductById, loading } = useProducts();
 
   const items = useMemo(
@@ -53,7 +52,6 @@ const Cart = () => {
         <p className='text-center text-g5'>Your cart is empty</p>
       ) : (
         <div className='bg-gray-100 rounded-lg p-4'>
-          {/* REMOVED: userId and date (not in Redux slice) */}
 
           <div className='space-y-2'>
             {items.map(({ item, product }, index) => (
@@ -79,7 +77,7 @@ const Cart = () => {
 
                 <div className='flex items-center justify-center gap-2'>
                   <button
-                    onClick={() => dispatch(decreaseQty(item.productId))}
+                    onClick={() => decreaseQty(item.productId)}
                     className='bg-r1 text-r6 w-8 h-8 rounded-full hover:bg-r2 transition text-lg font-bold'
                   >
                     −
@@ -90,7 +88,8 @@ const Cart = () => {
                   </span>
 
                   <button
-                    onClick={() => dispatch(increaseQty(item.productId))}
+                   
+                    onClick={() => increaseQty(item.productId)}
                     className='bg-gn1 text-gn6 w-8 h-8 rounded-full hover:bg-gn2 transition text-lg font-bold'
                   >
                     +
