@@ -12,7 +12,7 @@ function Sider() {
   const location = useLocation();
 
   return (
-    <aside className='w-50 bg-[#001529] text-white py-5 px-0'>
+    <aside className='w-50 bg-navy text-white py-5 px-0'>
       {menuItems.map((item) => {
         const isActive = location.pathname === item.path;
         return (
@@ -23,7 +23,7 @@ function Sider() {
               block px-5 py-3 no-underline
               ${
                 isActive
-                  ? 'text-[#1890ff] bg-[#1890ff22]'
+                  ? 'text-b5 bg-b9'  
                   : 'text-white bg-transparent hover:bg-[#1890ff22]'
               }
             `}

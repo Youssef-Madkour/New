@@ -1,14 +1,14 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useDispatch } from "react-redux";
-import { addToCart } from "../../../Redux/cartSlice";
+import { useCartStore } from "../../../Zustand/cartStore";
 import { useProducts } from '../../../context/ProductsContext';
 
 const PAGE_SIZE = 10;
 
 const Pro = () => {
   const { products, loading, error } = useProducts();
-  const dispatch = useDispatch();
+  
+  const addToCart = useCartStore((state) => state.addToCart);
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
 
   const visibleProducts = products.slice(0, visibleCount);
@@ -37,7 +37,7 @@ const Pro = () => {
             <p className='text-gn6 font-bold text-lg'>${product.price}</p>
 
             <button
-              onClick={() => dispatch(addToCart(product.id))}
+              onClick={() => addToCart(product.id)}
               className='bg-b6 text-white px-6 py-2 rounded-lg hover:bg-b7 transition mt-4 w-full'
             >
               Checkout

@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useCartStore } from '../../Zustand/cartStore';
+
 
 function Header() {
-  const cart = useSelector((state) => state);
+  const cart = useCartStore((state) => state);
   const totalCount = cart.products.reduce((sum, p) => sum + p.quantity, 0);
 
   return (
