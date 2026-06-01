@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
-import { useCartStore } from '../../../Zustand/cartStore';
+import { useCartStore } from '../Zustand/cartStore';
 
-const ProductDetail = () => {
+const ProductDetails = () => {
   const { id } = useParams();
   const addToCart = useCartStore((state) => state.addToCart);
   const [data, setData] = useState({ id: null, product: null, error: false });
 
+  // Todo: Use Axios Interface to register URL and Headers.
   useEffect(() => {
     let cancelled = false;
     axios
@@ -52,7 +53,7 @@ const ProductDetail = () => {
         <p className='text-gn6 font-bold text-xl text-center mb-4'>
           ${product.price}
         </p>
-        
+        {/* Todo: Add dynamic button  same for Products List*/}
         <button
           onClick={() => addToCart(product.id)}
           className='bg-b6 text-white px-6 py-3 rounded-lg hover:bg-b7 transition w-full'
@@ -64,4 +65,4 @@ const ProductDetail = () => {
   );
 };
 
-export default ProductDetail;
+export default ProductDetails;

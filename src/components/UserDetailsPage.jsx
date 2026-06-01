@@ -1,9 +1,11 @@
 import { useParams, Link } from 'react-router-dom';
-import { useAxios } from '../../../hooks/useAxios';
-import { useFetch } from '../../../hooks/useFetch';
+import { useAxios } from '../hooks/useAxios';
+import { useFetch } from '../hooks/useFetch';
 
-function ItemDetailsPage() {
+// Todo: Clean Unused Pages - GLOBAL
+function UserDetailsPage() {
   const { id } = useParams();
+  // Todo: Use Axios Interface to register URL and Headers.
   const {
     data: users,
     loading,
@@ -68,4 +70,4 @@ function ItemDetailsPage() {
   );
 }
 
-export default ItemDetailsPage;
+export default UserDetailsPage;
