@@ -1,6 +1,7 @@
-import { configureStore } from "@reduxjs/toolkit";
-import { persistStore, persistReducer } from "redux-persist";
-import cartReducer from "./cartSlice";
+// Todo: Depricate Redux totally
+import { configureStore } from '@reduxjs/toolkit';
+import { persistStore, persistReducer } from 'redux-persist';
+import cartReducer from './cartSlice';
 
 // Custom storage object
 const storage = {
@@ -10,7 +11,7 @@ const storage = {
 };
 
 const persistConfig = {
-  key: "cart",
+  key: 'cart',
   storage,
 };
 
@@ -21,11 +22,9 @@ export const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
-        ignoredActions: ["persist/PERSIST", "persist/REHYDRATE"],
+        ignoredActions: ['persist/PERSIST', 'persist/REHYDRATE'],
       },
     }),
 });
 
 export const persistor = persistStore(store);
-
-

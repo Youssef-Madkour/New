@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useFetch } from '../../../hooks/useFetch';
+import { useFetch } from '../hooks/useFetch';
 
 function Storepage() {
   const { data: products } = useFetch('/data/products.json');
   const [counts, setCounts] = useState({});
 
+  // Todo: Depricate unused code
   const increase = (productId) => {
     setCounts((prev) => ({ ...prev, [productId]: (prev[productId] || 0) + 1 }));
   };
@@ -17,7 +18,6 @@ function Storepage() {
     }));
   };
 
-  
   const totalCount = Object.values(counts).reduce(
     (sum, count) => sum + count,
     0
@@ -51,10 +51,9 @@ function Storepage() {
               <p className='font-bold text-lg text-center'>{product.price} </p>
             </Link>
             <button className='bg-b6 text-white w-50 h-10 rounded-full hover:bg-b7 transition text-xl font-bold'>
-               Checkout
-              </button>
-            </div>
-          
+              Checkout
+            </button>
+          </div>
         ))}
       </div>
     </div>

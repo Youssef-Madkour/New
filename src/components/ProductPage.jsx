@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useCartStore } from "../../../Zustand/cartStore";
-import { useProducts } from '../../../context/ProductsContext';
+import { useCartStore } from '../Zustand/cartStore';
+import { useProducts } from '../context/ProductsContext';
 
 const PAGE_SIZE = 10;
 
 const Pro = () => {
   const { products, loading, error } = useProducts();
-  
+
   const addToCart = useCartStore((state) => state.addToCart);
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
 

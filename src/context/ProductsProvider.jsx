@@ -30,6 +30,7 @@ export function ProductsProvider({ children }) {
   const [loading, setLoading] = useState(cached === null);
   const [error, setError] = useState(null);
 
+  // Todo: Use Axios Interface to register URL and Headers.
   useEffect(() => {
     let cancelled = false;
     axios

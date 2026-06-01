@@ -1,6 +1,5 @@
+import Pro from '../components/ProductPage';
 
-import Pro from '../components/pages/ProductPage/fake';
-
-const Product = () => <Pro/>;  
+const Product = () => <Pro />;
 
 export default Product;
