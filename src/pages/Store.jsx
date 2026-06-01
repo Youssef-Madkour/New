@@ -6,7 +6,8 @@ function Storepage() {
   const { data: products } = useFetch('/data/products.json');
   const [counts, setCounts] = useState({});
 
-  // Todo: Depricate unused code
+  // Todo: Depricate unused code 
+  // i will use it with the button of checkout to inc and dec 
   const increase = (productId) => {
     setCounts((prev) => ({ ...prev, [productId]: (prev[productId] || 0) + 1 }));
   };
