@@ -7,10 +7,8 @@ const PAGE_SIZE = 10;
 
 const Pro = () => {
   const { products, loading, error } = useProducts();
-
   const addToCart = useCartStore((state) => state.addToCart);
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
-
   const visibleProducts = products.slice(0, visibleCount);
 
   return (

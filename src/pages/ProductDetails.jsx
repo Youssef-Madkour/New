@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import axios from 'axios';
+import api from '../hooks/api';
 import { useCartStore } from '../Zustand/cartStore';
 
 const ProductDetails = () => {
@@ -8,11 +8,10 @@ const ProductDetails = () => {
   const addToCart = useCartStore((state) => state.addToCart);
   const [data, setData] = useState({ id: null, product: null, error: false });
 
-  // Todo: Use Axios Interface to register URL and Headers.
   useEffect(() => {
     let cancelled = false;
-    axios
-      .get(`https://fakestoreapi.com/products/${id}`)
+    api
+      .get(`/products/${id}`)  
       .then((res) => {
         if (!cancelled) setData({ id, product: res.data, error: false });
       })
@@ -53,7 +52,6 @@ const ProductDetails = () => {
         <p className='text-gn6 font-bold text-xl text-center mb-4'>
           ${product.price}
         </p>
-        {/* Todo: Add dynamic button  same for Products List*/}
         <button
           onClick={() => addToCart(product.id)}
           className='bg-b6 text-white px-6 py-3 rounded-lg hover:bg-b7 transition w-full'
@@ -64,5 +62,4 @@ const ProductDetails = () => {
     </div>
   );
 };
-
 export default ProductDetails;
