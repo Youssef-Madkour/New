@@ -1,6 +1,5 @@
 import { useMemo } from 'react';
 import { useCartStore } from '../Zustand/cartStore';
-// import { useCartStore } from '../../../Zustand/cartStore';
 import { useProducts } from '../context/ProductsContext.js';
 
 const Cart = () => {  const cart = useCartStore((state) => state);

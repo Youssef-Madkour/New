@@ -1,9 +1,8 @@
 import { useEffect, useMemo, useState, useCallback } from 'react';
-import axios from 'axios';
+import api from '../hooks/api';
 import { ProductsContext } from './ProductsContext.js';
 
 const STORAGE_KEY = 'products:cache:v1';
-const API_URL = 'https://fakestoreapi.com/products';
 
 function readCache() {
   try {
@@ -20,8 +19,7 @@ function writeCache(products) {
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(products));
   } catch {
-    // quota / private-mode failures are non-fatal
-  }
+    }
 }
 
 export function ProductsProvider({ children }) {
@@ -30,11 +28,11 @@ export function ProductsProvider({ children }) {
   const [loading, setLoading] = useState(cached === null);
   const [error, setError] = useState(null);
 
-  // Todo: Use Axios Interface to register URL and Headers.
+// Todo: Use Axios Interface to register URL and Headers. (done)
   useEffect(() => {
     let cancelled = false;
-    axios
-      .get(API_URL)
+    api
+      .get('/products')
       .then((res) => {
         if (cancelled) return;
         const next = Array.isArray(res.data) ? res.data : [];
