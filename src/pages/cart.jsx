@@ -1,18 +1,18 @@
 import { useMemo } from 'react';
-import { useCartStore } from '../Zustand/cartStore';
+import { useStore } from '../Zustand/store';
 import { useProducts } from '../context/ProductsContext.js';
 
 const Cart = () => {
-  const cart = useCartStore((state) => state);
-  const increaseQty = useCartStore((state) => state.increaseQty);
-  const decreaseQty = useCartStore((state) => state.decreaseQty);
+  const cart = useStore((state) => state);
+  const increaseQty = useStore((state) => state.increaseQty);
+  const decreaseQty = useStore((state) => state.decreaseQty);
   const { getProductById, loading } = useProducts();
 
   const items = cart.products.map((item) => ({
     item,
     product: getProductById(item.productId),
   }));
-  
+
  //get from cartstore
   const totalItems = cart.getTotalItems();
   const totalPrice = cart.getTotalPrice(getProductById);

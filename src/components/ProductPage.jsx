@@ -1,16 +1,16 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useCartStore } from '../Zustand/cartStore';
+import { useStore } from '../Zustand/store';
 import { useProducts } from '../context/ProductsContext';
 
 const PAGE_SIZE = 10;
 
 const Pro = () => {
   const { products, loading, error } = useProducts();
-  const addToCart = useCartStore((state) => state.addToCart);
-  const increaseQty = useCartStore((state) => state.increaseQty);
-  const decreaseQty = useCartStore((state) => state.decreaseQty);
-  const cartProducts = useCartStore((state) => state.products);
+  const addToCart = useStore((state) => state.addToCart);
+  const increaseQty = useStore((state) => state.increaseQty);
+  const decreaseQty = useStore((state) => state.decreaseQty);
+  const cartProducts = useStore((state) => state.products);
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
   const visibleProducts = products.slice(0, visibleCount);
 
