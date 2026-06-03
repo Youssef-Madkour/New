@@ -3,11 +3,23 @@ import { persist } from 'zustand/middleware';
 
 // Todo: Create a slice and global store
 // https://zustand.docs.pmnd.rs/learn/guides/slices-pattern#slicing-the-store-into-smaller-stores
+
 export const useCartStore = create(
   persist(
-    (set) => ({
+    (set, get) => ({
       products: [],
-      // Todo: Add total + Count
+
+      // Todo: Add total + Count (done)
+      getTotalItems: () => {
+        return get().products.reduce((sum, p) => sum + p.quantity, 0);
+      },
+
+      getTotalPrice: (getProductById) => {
+        return get().products.reduce((sum, p) => {
+          const product = getProductById(p.productId);
+          return product ? sum + product.price * p.quantity : sum;
+        }, 0);
+      },
 
       addToCart: (productId) =>
         set((state) => {
@@ -44,3 +56,4 @@ export const useCartStore = create(
     { name: 'cart' }
   )
 );
+
