@@ -4,7 +4,7 @@ import { persist } from 'zustand/middleware';
 // Todo: Create a slice and global store
 // https://zustand.docs.pmnd.rs/learn/guides/slices-pattern#slicing-the-store-into-smaller-stores
 
-export const useCartStore = create(
+export const useStore = create(
   persist(
     (set, get) => ({
       products: [],
