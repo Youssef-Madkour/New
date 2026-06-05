@@ -36,7 +36,7 @@ const ProductDetails = () => {
 
   return (
     <div className='p-4 max-w-2xl mx-auto'>
-      <Link to='/Product' className='text-b6 hover:underline mb-4 block'>
+      <Link to='/product' className='text-b6 hover:underline mb-4 block'>
         ← Back to Shop
       </Link>
 

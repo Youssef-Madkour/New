@@ -26,12 +26,12 @@ const Cart = () => {
   return (
     <div className='p-4 max-w-4xl mx-auto'>
       <h1 className='text-2xl font-bold text-center mb-6'>🛒 Shopping Cart</h1>
-      <a
-        href='./Product'
+      <Link
+        to='/product'
         className='text-b6 hover:underline mb-4 inline-block'
       >
         ← Back to Shop
-      </a>
+      </Link>
 
       {cart.products.length === 0 ? (
         <p className='text-center text-g5'>Your cart is empty</p>
