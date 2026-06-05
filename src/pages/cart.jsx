@@ -1,35 +1,21 @@
 import { useMemo } from 'react';
-import { useCartStore } from '../Zustand/cartStore';
+import { useStore } from '../Zustand/store';
 import { useProducts } from '../context/ProductsContext.js';
 
-const Cart = () => {  const cart = useCartStore((state) => state);
-  const increaseQty = useCartStore((state) => state.increaseQty);
-  const decreaseQty = useCartStore((state) => state.decreaseQty);
+const Cart = () => {
+  const cart = useStore((state) => state);
+  const increaseQty = useStore((state) => state.increaseQty);
+  const decreaseQty = useStore((state) => state.decreaseQty);
   const { getProductById, loading } = useProducts();
 
-  const items = useMemo(
-    () =>
-      cart.products.map((item) => ({
-        item,
-        product: getProductById(item.productId),
-      })),
-    [cart.products, getProductById]
-  );
+  const items = cart.products.map((item) => ({
+    item,
+    product: getProductById(item.productId),
+  }));
 
-  const totalItems = useMemo(
-    () => cart.products.reduce((sum, p) => sum + p.quantity, 0),
-    [cart.products]
-  );
-
-  const totalPrice = useMemo(
-    () =>
-      items.reduce(
-        (sum, { item, product }) =>
-          product ? sum + product.price * item.quantity : sum,
-        0
-      ),
-    [items]
-  );
+ //get from cartstore
+  const totalItems = cart.getTotalItems();
+  const totalPrice = cart.getTotalPrice(getProductById);
 
   if (loading && cart.products.length > 0 &&
     items.every(({ product }) => !product)
@@ -51,7 +37,6 @@ const Cart = () => {  const cart = useCartStore((state) => state);
         <p className='text-center text-g5'>Your cart is empty</p>
       ) : (
         <div className='bg-gray-100 rounded-lg p-4'>
-
           <div className='space-y-2'>
             {items.map(({ item, product }, index) => (
               <div
@@ -87,7 +72,6 @@ const Cart = () => {  const cart = useCartStore((state) => state);
                   </span>
 
                   <button
-                   
                     onClick={() => increaseQty(item.productId)}
                     className='bg-gn1 text-gn6 w-8 h-8 rounded-full hover:bg-gn2 transition text-lg font-bold'
                   >

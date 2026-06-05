@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import api from '../hooks/api';
-import { useCartStore } from '../Zustand/cartStore';
+import { useStore } from '../Zustand/store';
 
 const ProductDetails = () => {
   const { id } = useParams();
-  const addToCart = useCartStore((state) => state.addToCart);
+  const addToCart = useStore((state) => state.addToCart);
   const [data, setData] = useState({ id: null, product: null, error: false });
 
   useEffect(() => {

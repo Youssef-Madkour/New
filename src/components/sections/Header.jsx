@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
-import { useCartStore } from '../../Zustand/cartStore';
+import { useStore } from '../../Zustand/store';
 
 
 function Header() {
-  const cart = useCartStore((state) => state);
+  const cart = useStore((state) => state);
   const totalCount = cart.products.reduce((sum, p) => sum + p.quantity, 0);
 
   return (
