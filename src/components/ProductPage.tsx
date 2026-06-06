@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useStore } from '../Zustand/store';
 import { useProducts } from '../context/ProductsContext';
+import type { Product } from '../Zustand/slices/cartSlice';
 
 const PAGE_SIZE = 10;
 
@@ -12,10 +13,9 @@ const Pro = () => {
   const decreaseQty = useStore((state) => state.decreaseQty);
   const cartProducts = useStore((state) => state.products);
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
-  const visibleProducts = products.slice(0, visibleCount);
+  const visibleProducts: Product[] = products.slice(0, visibleCount);
 
-  // Helper to get quantity of a product in cart
-  const getCartQty = (productId) => {
+  const getCartQty = (productId: number): number => {
     const item = cartProducts.find((p) => p.productId === productId);
     return item ? item.quantity : 0;
   };
@@ -42,7 +42,6 @@ const Pro = () => {
                 src={product.image}
                 alt={product.title}
               />
-
               <p className='text-gy6'>{product.category}</p>
               <p className='text-gn6 font-bold text-lg'>${product.price}</p>
 
@@ -61,11 +60,9 @@ const Pro = () => {
                   >
                     −
                   </button>
-
                   <span className='bg-b1 text-b8 px-3 py-1 rounded-full font-bold text-center min-w-[60px]'>
                     {qty}
                   </span>
-
                   <button
                     onClick={() => increaseQty(product.id)}
                     className='bg-gn1 text-gn6 w-8 h-8 rounded-full hover:bg-gn2 transition text-lg font-bold'

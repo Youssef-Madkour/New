@@ -1,6 +1,15 @@
 import { Link, useLocation } from 'react-router-dom';
 
+<<<<<<< HEAD:src/components/sections/Sider.tsx
+interface MenuItem {
+  label: string;
+  path: string;
+}
+
+const menuItems: MenuItem[] = [
+=======
 const menuItems = [
+>>>>>>> f14c986badda3c1ae9e12e759a15230048fe6f9b:src/components/sections/Sider.jsx
   { label: 'Home', path: '/' },
   { label: 'Shop', path: '/product' },
 ];
@@ -20,7 +29,7 @@ function Sider() {
               block px-5 py-3 no-underline
               ${
                 isActive
-                  ? 'text-b5 bg-b9'  
+                  ? 'text-b5 bg-b9'
                   : 'text-white bg-transparent hover:bg-[#1890ff22]'
               }
             `}
