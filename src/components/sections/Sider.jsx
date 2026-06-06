@@ -2,10 +2,7 @@ import { Link, useLocation } from 'react-router-dom';
 
 const menuItems = [
   { label: 'Home', path: '/' },
-  { label: 'Store', path: '/Store' },
   { label: 'product', path: '/Product' },
-  
-
 ];
 
 function Sider() {
