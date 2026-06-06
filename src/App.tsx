@@ -6,7 +6,7 @@ import Product from './pages/Product';
 import Cart from './pages/cart';
 import ProductDetails from './pages/ProductDetails';
 
-function App() {
+const App = () => {
   return (
     <BrowserRouter>
       <Routes>
@@ -20,6 +20,6 @@ function App() {
       </Routes>
     </BrowserRouter>
   );
-}
+};
 
 export default App;

@@ -1,11 +1,11 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { createCartSlice } from './slices/cartSlice';
-import type { CartSlice } from './slices/cartSlice';
+import type { ICartSlice } from './slices/cartSlice';
 
-export type StoreState = CartSlice;
+export type TStoreState = ICartSlice;
 
-export const useStore = create<StoreState>()(
+export const useStore = create<TStoreState>()(
   persist(
     (...args) => ({
       ...createCartSlice(...args),

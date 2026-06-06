@@ -1,16 +1,16 @@
 import { Link, useLocation } from 'react-router-dom';
 
-interface MenuItem {
+interface IMenuItem {
   label: string;
   path: string;
 }
 
-const menuItems: MenuItem[] = [
+const menuItems: IMenuItem[] = [
   { label: 'Home', path: '/' },
   { label: 'Shop', path: '/product' },
 ];
 
-function Sider() {
+const Sider = () => {
   const location = useLocation();
 
   return (
@@ -36,6 +36,6 @@ function Sider() {
       })}
     </aside>
   );
-}
+};
 
 export default Sider;

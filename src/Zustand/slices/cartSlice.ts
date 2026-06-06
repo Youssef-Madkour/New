@@ -1,6 +1,6 @@
 import type { StateCreator } from 'zustand';
 
-export interface Product {
+export interface IProduct {
   id: number;
   title: string;
   price: number;
@@ -10,15 +10,15 @@ export interface Product {
   rating: { rate: number; count: number };
 }
 
-export interface CartItem {
+export interface ICartItem {
   productId: number;
   quantity: number;
 }
 
-export interface CartSlice {
-  products: CartItem[];
+export interface ICartSlice {
+  products: ICartItem[];
   getTotalItems: () => number;
-  getTotalPrice: (getProductById: (id: number) => Product | null) => number;
+  getTotalPrice: (getProductById: (id: number) => IProduct | null) => number;
   addToCart: (productId: number) => void;
   increaseQty: (productId: number) => void;
   decreaseQty: (productId: number) => void;
@@ -26,7 +26,7 @@ export interface CartSlice {
   clearCart: () => void;
 }
 
-export const createCartSlice: StateCreator<CartSlice> = (set, get) => ({
+export const createCartSlice: StateCreator<ICartSlice> = (set, get) => ({
   products: [],
 
   getTotalItems: () => get().products.reduce((sum, p) => sum + p.quantity, 0),

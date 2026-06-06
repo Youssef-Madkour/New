@@ -2,22 +2,22 @@ import { useEffect, useMemo, useState, useCallback } from 'react';
 import type { ReactNode } from 'react';
 import api from '../hooks/api';
 import { ProductsContext } from './ProductsContext';
-import type { Product } from '../Zustand/slices/cartSlice';
+import type { IProduct } from '../Zustand/slices/cartSlice';
 
 const STORAGE_KEY = 'products:cache:v1';
 
-function readCache(): Product[] | null {
+function readCache(): IProduct[] | null {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) return null;
     const parsed: unknown = JSON.parse(raw);
-    return Array.isArray(parsed) ? (parsed as Product[]) : null;
+    return Array.isArray(parsed) ? (parsed as IProduct[]) : null;
   } catch {
     return null;
   }
 }
 
-function writeCache(products: Product[]): void {
+function writeCache(products: IProduct[]): void {
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(products));
   } catch {
@@ -25,16 +25,16 @@ function writeCache(products: Product[]): void {
   }
 }
 
-export function ProductsProvider({ children }: { children: ReactNode }) {
+export const ProductsProvider = ({ children }: { children: ReactNode }) => {
   const cached = useMemo(() => readCache(), []);
-  const [products, setProducts] = useState<Product[]>(cached ?? []);
+  const [products, setProducts] = useState<IProduct[]>(cached ?? []);
   const [loading, setLoading] = useState(cached === null);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     let cancelled = false;
     api
-      .get<Product[]>('/products')
+      .get<IProduct[]>('/products')
       .then((res) => {
         if (cancelled) return;
         const next = Array.isArray(res.data) ? res.data : [];
@@ -55,13 +55,13 @@ export function ProductsProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const productsById = useMemo(() => {
-    const map = new Map<number, Product>();
+    const map = new Map<number, IProduct>();
     for (const p of products) map.set(p.id, p);
     return map;
   }, [products]);
 
   const getProductById = useCallback(
-    (id: number): Product | null => productsById.get(id) ?? null,
+    (id: number): IProduct | null => productsById.get(id) ?? null,
     [productsById]
   );
 
@@ -75,4 +75,4 @@ export function ProductsProvider({ children }: { children: ReactNode }) {
       {children}
     </ProductsContext.Provider>
   );
-}
+};

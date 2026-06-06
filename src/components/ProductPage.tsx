@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useStore } from '../Zustand/store';
 import { useProducts } from '../context/ProductsContext';
-import type { Product } from '../Zustand/slices/cartSlice';
+import type { IProduct } from '../Zustand/slices/cartSlice';
 
 const PAGE_SIZE = 10;
 
@@ -13,7 +13,7 @@ const Pro = () => {
   const decreaseQty = useStore((state) => state.decreaseQty);
   const cartProducts = useStore((state) => state.products);
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
-  const visibleProducts: Product[] = products.slice(0, visibleCount);
+  const visibleProducts: IProduct[] = products.slice(0, visibleCount);
 
   const getCartQty = (productId: number): number => {
     const item = cartProducts.find((p) => p.productId === productId);

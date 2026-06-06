@@ -1,16 +1,16 @@
 import { createContext, useContext } from 'react';
-import type { Product } from '../Zustand/slices/cartSlice';
+import type { IProduct } from '../Zustand/slices/cartSlice';
 
-export interface ProductsContextValue {
-  products: Product[];
+export interface IProductsContextValue {
+  products: IProduct[];
   loading: boolean;
   error: string | null;
-  getProductById: (id: number) => Product | null;
+  getProductById: (id: number) => IProduct | null;
 }
 
-export const ProductsContext = createContext<ProductsContextValue | null>(null);
+export const ProductsContext = createContext<IProductsContextValue | null>(null);
 
-export function useProducts(): ProductsContextValue {
+export function useProducts(): IProductsContextValue {
   const ctx = useContext(ProductsContext);
   if (!ctx) throw new Error('useProducts must be used within ProductsProvider');
   return ctx;

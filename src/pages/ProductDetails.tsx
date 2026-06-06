@@ -2,24 +2,24 @@ import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import api from '../hooks/api';
 import { useStore } from '../Zustand/store';
-import type { Product } from '../Zustand/slices/cartSlice';
+import type { IProduct } from '../Zustand/slices/cartSlice';
 
-interface DetailState {
+interface IDetailState {
   id: string | null;
-  product: Product | null;
+  product: IProduct | null;
   error: boolean;
 }
 
 const ProductDetails = () => {
   const { id } = useParams<{ id: string }>();
   const addToCart = useStore((state) => state.addToCart);
-  const [data, setData] = useState<DetailState>({ id: null, product: null, error: false });
+  const [data, setData] = useState<IDetailState>({ id: null, product: null, error: false });
 
   useEffect(() => {
     if (!id) return;
     let cancelled = false;
     api
-      .get<Product>(`/products/${id}`)
+      .get<IProduct>(`/products/${id}`)
       .then((res) => {
         if (!cancelled) setData({ id, product: res.data, error: false });
       })

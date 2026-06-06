@@ -1,12 +1,12 @@
 import { Link } from 'react-router-dom';
 import { useStore } from '../Zustand/store';
 import { useProducts } from '../context/ProductsContext';
-import type { Product } from '../Zustand/slices/cartSlice';
-import type { CartItem } from '../Zustand/slices/cartSlice';
+import type { IProduct } from '../Zustand/slices/cartSlice';
+import type { ICartItem } from '../Zustand/slices/cartSlice';
 
-interface CartRow {
-  item: CartItem;
-  product: Product | null;
+interface ICartRow {
+  item: ICartItem;
+  product: IProduct | null;
 }
 
 const Cart = () => {
@@ -16,7 +16,7 @@ const Cart = () => {
   const removeFromCart = useStore((state) => state.removeFromCart);
   const { getProductById, loading } = useProducts();
 
-  const items: CartRow[] = cart.products.map((item) => ({
+  const items: ICartRow[] = cart.products.map((item) => ({
     item,
     product: getProductById(item.productId),
   }));

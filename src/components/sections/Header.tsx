@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useStore } from '../../Zustand/store';
 
-function Header() {
+const Header = () => {
   const totalCount = useStore((state) =>
     state.products.reduce((sum, p) => sum + p.quantity, 0)
   );
@@ -22,6 +22,6 @@ function Header() {
       </Link>
     </header>
   );
-}
+};
 
 export default Header;

@@ -2,7 +2,7 @@ import { Outlet } from 'react-router-dom';
 import Header from '../sections/Header';
 import Sider from '../sections/Sider';
 
-function Layout() {
+const Layout = () => {
   return (
     <div className='flex h-screen'>
       <Sider />
@@ -14,6 +14,6 @@ function Layout() {
       </div>
     </div>
   );
-}
+};
 
 export default Layout;
