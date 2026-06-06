@@ -1,40 +1,50 @@
-import { useMemo } from 'react';
+import { Link } from 'react-router-dom';
 import { useStore } from '../Zustand/store';
-import { useProducts } from '../context/ProductsContext.js';
+import { useProducts } from '../context/ProductsContext';
+import type { Product } from '../Zustand/slices/cartSlice';
+import type { CartItem } from '../Zustand/slices/cartSlice';
+
+interface CartRow {
+  item: CartItem;
+  product: Product | null;
+}
 
 const Cart = () => {
   const cart = useStore((state) => state);
   const increaseQty = useStore((state) => state.increaseQty);
   const decreaseQty = useStore((state) => state.decreaseQty);
+  const removeFromCart = useStore((state) => state.removeFromCart);
   const { getProductById, loading } = useProducts();
 
-  const items = cart.products.map((item) => ({
+  const items: CartRow[] = cart.products.map((item) => ({
     item,
     product: getProductById(item.productId),
   }));
 
- //get from cartstore
-  const totalItems = cart.getTotalItems();
-  const totalPrice = cart.getTotalPrice(getProductById);
+  const totalItems: number = cart.getTotalItems();
+  const totalPrice: number = cart.getTotalPrice(getProductById);
 
-  if (loading && cart.products.length > 0 &&
-    items.every(({ product }) => !product)
-  ) {
+  if (loading && cart.products.length > 0 && items.every(({ product }) => !product)) {
     return <div className='text-center p-8'>Loading...</div>;
   }
 
   return (
     <div className='p-4 max-w-4xl mx-auto'>
       <h1 className='text-2xl font-bold text-center mb-6'>🛒 Shopping Cart</h1>
-      <a
-        href='./Product'
-        className='text-b6 hover:underline mb-4 inline-block'
-      >
+      <Link to='/product' className='text-b6 hover:underline mb-4 inline-block'>
         ← Back to Shop
-      </a>
+      </Link>
 
       {cart.products.length === 0 ? (
-        <p className='text-center text-g5'>Your cart is empty</p>
+        <div className='text-center py-16'>
+          <p className='text-gy5 text-lg mb-4'>Your cart is empty</p>
+          <Link
+            to='/product'
+            className='bg-b6 text-white px-6 py-2 rounded-lg hover:bg-b7 transition'
+          >
+            Start Shopping
+          </Link>
+        </div>
       ) : (
         <div className='bg-gray-100 rounded-lg p-4'>
           <div className='space-y-2'>
@@ -47,11 +57,7 @@ const Cart = () => {
 
                 {product && (
                   <>
-                    <img
-                      src={product.image}
-                      alt=''
-                      className='w-16 h-16 mx-auto block'
-                    />
+                    <img src={product.image} alt='' className='w-16 h-16 mx-auto block' />
                     <div className='flex-1 text-center'>
                       <p className='font-semibold text-sm'>{product.title}</p>
                       <p className='text-gn6'>${product.price}</p>
@@ -66,11 +72,9 @@ const Cart = () => {
                   >
                     −
                   </button>
-
                   <span className='bg-b1 text-b8 px-3 py-1 rounded-full font-bold text-center'>
                     Qty: {item.quantity}
                   </span>
-
                   <button
                     onClick={() => increaseQty(item.productId)}
                     className='bg-gn1 text-gn6 w-8 h-8 rounded-full hover:bg-gn2 transition text-lg font-bold'
@@ -82,6 +86,13 @@ const Cart = () => {
                 <p className='font-bold text-b6 text-center'>
                   ${product ? (product.price * item.quantity).toFixed(2) : '--'}
                 </p>
+
+                <button
+                  onClick={() => removeFromCart(item.productId)}
+                  className='text-r6 hover:text-r7 text-sm underline text-center'
+                >
+                  Remove
+                </button>
               </div>
             ))}
           </div>

@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom';
 import { useStore } from '../../Zustand/store';
 
-
 function Header() {
-  const cart = useStore((state) => state);
-  const totalCount = cart.products.reduce((sum, p) => sum + p.quantity, 0);
+  const totalCount = useStore((state) =>
+    state.products.reduce((sum, p) => sum + p.quantity, 0)
+  );
 
   return (
     <header className='bg-navy text-white flex items-center justify-between p-2'>

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import type { InternalAxiosRequestConfig } from 'axios';
 
 const api = axios.create({
   baseURL: 'https://fakestoreapi.com',
@@ -6,19 +7,19 @@ const api = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
-})
-//run before every request
+});
+
 api.interceptors.request.use(
-  (config) => {
+  (config: InternalAxiosRequestConfig) => {
     console.log('Request:', config.method, config.url);
     return config;
   },
-  (error) => Promise.reject(error)
+  (error: unknown) => Promise.reject(error)
 );
-// run after every response
+
 api.interceptors.response.use(
   (response) => response,
-  (error) => {
+  (error: Error) => {
     console.error('API Error:', error.message);
     return Promise.reject(error);
   }

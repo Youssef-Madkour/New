@@ -1,8 +1,13 @@
 import { Link, useLocation } from 'react-router-dom';
 
-const menuItems = [
+interface MenuItem {
+  label: string;
+  path: string;
+}
+
+const menuItems: MenuItem[] = [
   { label: 'Home', path: '/' },
-  { label: 'product', path: '/Product' },
+  { label: 'Shop', path: '/product' },
 ];
 
 function Sider() {
@@ -20,7 +25,7 @@ function Sider() {
               block px-5 py-3 no-underline
               ${
                 isActive
-                  ? 'text-b5 bg-b9'  
+                  ? 'text-b5 bg-b9'
                   : 'text-white bg-transparent hover:bg-[#1890ff22]'
               }
             `}

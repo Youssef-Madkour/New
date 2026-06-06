@@ -2,20 +2,28 @@ import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import api from '../hooks/api';
 import { useStore } from '../Zustand/store';
+import type { Product } from '../Zustand/slices/cartSlice';
+
+interface DetailState {
+  id: string | null;
+  product: Product | null;
+  error: boolean;
+}
 
 const ProductDetails = () => {
-  const { id } = useParams();
+  const { id } = useParams<{ id: string }>();
   const addToCart = useStore((state) => state.addToCart);
-  const [data, setData] = useState({ id: null, product: null, error: false });
+  const [data, setData] = useState<DetailState>({ id: null, product: null, error: false });
 
   useEffect(() => {
+    if (!id) return;
     let cancelled = false;
     api
-      .get(`/products/${id}`)  
+      .get<Product>(`/products/${id}`)
       .then((res) => {
         if (!cancelled) setData({ id, product: res.data, error: false });
       })
-      .catch((err) => {
+      .catch((err: Error) => {
         if (!cancelled) {
           console.error('Failed to load product', err);
           setData({ id, product: null, error: true });
@@ -36,7 +44,7 @@ const ProductDetails = () => {
 
   return (
     <div className='p-4 max-w-2xl mx-auto'>
-      <Link to='/Product' className='text-b6 hover:underline mb-4 block'>
+      <Link to='/product' className='text-b6 hover:underline mb-4 block'>
         ← Back to Shop
       </Link>
 
@@ -49,9 +57,7 @@ const ProductDetails = () => {
         <h1 className='text-2xl font-bold mb-2 text-gy7'>{product.title}</h1>
         <p className='text-gy5 mb-2 text-center'>{product.category}</p>
         <p className='text-gy6 mb-6'>{product.description}</p>
-        <p className='text-gn6 font-bold text-xl text-center mb-4'>
-          ${product.price}
-        </p>
+        <p className='text-gn6 font-bold text-xl text-center mb-4'>${product.price}</p>
         <button
           onClick={() => addToCart(product.id)}
           className='bg-b6 text-white px-6 py-3 rounded-lg hover:bg-b7 transition w-full'
@@ -62,4 +68,5 @@ const ProductDetails = () => {
     </div>
   );
 };
+
 export default ProductDetails;
