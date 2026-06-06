@@ -1,15 +1,11 @@
 import { Link, useLocation } from 'react-router-dom';
 
-<<<<<<< HEAD:src/components/sections/Sider.tsx
 interface MenuItem {
   label: string;
   path: string;
 }
 
 const menuItems: MenuItem[] = [
-=======
-const menuItems = [
->>>>>>> f14c986badda3c1ae9e12e759a15230048fe6f9b:src/components/sections/Sider.jsx
   { label: 'Home', path: '/' },
   { label: 'Shop', path: '/product' },
 ];
