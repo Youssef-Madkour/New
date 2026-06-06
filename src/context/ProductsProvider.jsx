@@ -1,40 +1,38 @@
 import { useEffect, useMemo, useState, useCallback } from 'react';
-import type { ReactNode } from 'react';
 import api from '../hooks/api';
-import { ProductsContext } from './ProductsContext';
-import type { Product } from '../Zustand/slices/cartSlice';
+import { ProductsContext } from './ProductsContext.js';
 
 const STORAGE_KEY = 'products:cache:v1';
 
-function readCache(): Product[] | null {
+function readCache() {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) return null;
-    const parsed: unknown = JSON.parse(raw);
-    return Array.isArray(parsed) ? (parsed as Product[]) : null;
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) ? parsed : null;
   } catch {
     return null;
   }
 }
 
-function writeCache(products: Product[]): void {
+function writeCache(products) {
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(products));
   } catch {
-    // storage quota exceeded — silently ignore
-  }
+    }
 }
 
-export function ProductsProvider({ children }: { children: ReactNode }) {
+export function ProductsProvider({ children }) {
   const cached = useMemo(() => readCache(), []);
-  const [products, setProducts] = useState<Product[]>(cached ?? []);
+  const [products, setProducts] = useState(cached ?? []);
   const [loading, setLoading] = useState(cached === null);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState(null);
 
+// Todo: Use Axios Interface to register URL and Headers. (done)
   useEffect(() => {
     let cancelled = false;
     api
-      .get<Product[]>('/products')
+      .get('/products')
       .then((res) => {
         if (cancelled) return;
         const next = Array.isArray(res.data) ? res.data : [];
@@ -42,9 +40,9 @@ export function ProductsProvider({ children }: { children: ReactNode }) {
         writeCache(next);
         setError(null);
       })
-      .catch((err: Error) => {
+      .catch((err) => {
         if (cancelled) return;
-        setError(err?.message ?? 'Failed to load products');
+        setError(err?.message || 'Failed to load products');
       })
       .finally(() => {
         if (!cancelled) setLoading(false);
@@ -55,13 +53,13 @@ export function ProductsProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const productsById = useMemo(() => {
-    const map = new Map<number, Product>();
+    const map = new Map();
     for (const p of products) map.set(p.id, p);
     return map;
   }, [products]);
 
   const getProductById = useCallback(
-    (id: number): Product | null => productsById.get(id) ?? null,
+    (id) => productsById.get(Number(id)) ?? null,
     [productsById]
   );
 
