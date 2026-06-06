@@ -24,7 +24,11 @@ const Cart = () => {
   const totalItems: number = cart.getTotalItems();
   const totalPrice: number = cart.getTotalPrice(getProductById);
 
-  if (loading && cart.products.length > 0 && items.every(({ product }) => !product)) {
+  if (
+    loading &&
+    cart.products.length > 0 &&
+    items.every(({ product }) => !product)
+  ) {
     return <div className='text-center p-8'>Loading...</div>;
   }
 
@@ -34,8 +38,10 @@ const Cart = () => {
       <Link to='/product' className='text-b6 hover:underline mb-4 inline-block'>
         ← Back to Shop
       </Link>
+      {/* {cart.products.length === 0 ? <EmptyCart /> : <CartItem props={props} />} */}
 
       {cart.products.length === 0 ? (
+        // Todo: Extract into a new component Empty Cart
         <div className='text-center py-16'>
           <p className='text-gy5 text-lg mb-4'>Your cart is empty</p>
           <Link
@@ -46,6 +52,7 @@ const Cart = () => {
           </Link>
         </div>
       ) : (
+        // Todo: Extract into new Component CartItem
         <div className='bg-gray-100 rounded-lg p-4'>
           <div className='space-y-2'>
             {items.map(({ item, product }, index) => (
@@ -57,7 +64,11 @@ const Cart = () => {
 
                 {product && (
                   <>
-                    <img src={product.image} alt='' className='w-16 h-16 mx-auto block' />
+                    <img
+                      src={product.image}
+                      alt=''
+                      className='w-16 h-16 mx-auto block'
+                    />
                     <div className='flex-1 text-center'>
                       <p className='font-semibold text-sm'>{product.title}</p>
                       <p className='text-gn6'>${product.price}</p>
