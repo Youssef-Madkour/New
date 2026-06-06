@@ -60,7 +60,7 @@ const Pro = () => {
                   >
                     −
                   </button>
-                  <span className='bg-b1 text-b8 px-3 py-1 rounded-full font-bold text-center min-w-[60px]'>
+                  <span className='bg-b1 text-b8 px-3 py-1 rounded-full font-bold text-center min-w-15'>
                     {qty}
                   </span>
                   <button
