@@ -1,15 +1,25 @@
+// Zustand/store.ts
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import { createCartSlice } from './slices/cartSlice';
-import type { CartSlice } from './slices/cartSlice';
+import { createCartSlice, type CartSlice } from './slices/cartSlice';
+import { createAuthSlice, type AuthState } from './slices/authSlice';
 
-export type StoreState = CartSlice;
+export type StoreState = CartSlice & AuthState;
 
 export const useStore = create<StoreState>()(
   persist(
-    (...args) => ({
-      ...createCartSlice(...args),
+    (set, get, api) => ({
+      ...createCartSlice(set as never, get as never, api as never),
+      ...createAuthSlice(set as never, get as never),
     }),
-    { name: 'cart' }
+    {
+      name: 'app-storage',
+      partialize: (state) => ({
+        products: state.products,
+        user: state.user,
+        isLoggedIn: state.isLoggedIn,
+        registeredUsers: state.registeredUsers,
+      }),
+    }
   )
 );
