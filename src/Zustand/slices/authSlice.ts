@@ -4,44 +4,104 @@ export interface User {
   name: string;
 }
 
-interface StoredUser extends User {
-  password: string;
-}
-
 export interface AuthState {
   user: User | null;
   isLoggedIn: boolean;
-  registeredUsers: StoredUser[];
-  register: (name: string, email: string, password: string) => string | null;
-  loginUser: (email: string, password: string) => string | null;
+  register: (name: string, email: string, password: string) => Promise<string | null>;
+  loginUser: (email: string, password: string) => Promise<string | null>;
+  updateUser: (name: string, email: string) => Promise<string | null>;
+  deleteUser: () => Promise<string | null>;
   logout: () => void;
 }
 
-export const createAuthSlice = (set: (partial: Partial<AuthState>) => void, get: () => AuthState): AuthState => ({
+export const createAuthSlice = (
+  set: (partial: Partial<AuthState>) => void,
+  get: () => AuthState,
+): AuthState => ({
   user: null,
   isLoggedIn: false,
-  registeredUsers: [],
 
-  register: (name, email, password) => {
-    const existing = get().registeredUsers.find((u) => u.email === email);
-    if (existing) return 'An account with this email already exists.';
+  register: async (name, email, password) => {
+    try {
+      const res = await fetch('https://fakestoreapi.com/users', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username: name, email, password }),
+      });
 
-    const newUser: StoredUser = { id: Date.now().toString(), name, email, password };
-    set({
-      registeredUsers: [...get().registeredUsers, newUser],
-      user: { id: newUser.id, name, email },
-      isLoggedIn: true,
-    });
-    return null;
+      if (!res.ok) return 'Registration failed. Please try again.';
+
+      const data = await res.json();
+
+      set({
+        user: { id: data.id.toString(), name, email },
+        isLoggedIn: true,
+      });
+
+      return null;
+    } catch {
+      return 'Network error. Please try again.';
+    }
   },
 
-  loginUser: (email, password) => {
-    const found = get().registeredUsers.find((u) => u.email === email);
-    if (!found) return 'No account found with this email.';
-    if (found.password !== password) return 'Incorrect password.';
+  loginUser: async (email, password) => {
+    try {
+      const res = await fetch('https://fakestoreapi.com/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username: email, password }),
+      });
 
-    set({ user: { id: found.id, name: found.name, email: found.email }, isLoggedIn: true });
-    return null;
+      if (!res.ok) return 'Invalid email or password.';
+
+      await res.json();
+
+      set({ user: { id: '', name: email, email }, isLoggedIn: true });
+
+      return null;
+    } catch {
+      return 'Network error. Please try again.';
+    }
+  },
+
+  updateUser: async (name, email) => {
+    const { user } = get();
+    if (!user) return 'Not logged in.';
+
+    try {
+      const res = await fetch(`https://fakestoreapi.com/users/${user.id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username: name, email }),
+      });
+
+      if (!res.ok) return 'Update failed. Please try again.';
+
+      set({ user: { ...user, name, email } });
+
+      return null;
+    } catch {
+      return 'Network error. Please try again.';
+    }
+  },
+
+  deleteUser: async () => {
+    const { user } = get();
+    if (!user) return 'Not logged in.';
+
+    try {
+      const res = await fetch(`https://fakestoreapi.com/users/${user.id}`, {
+        method: 'DELETE',
+      });
+
+      if (!res.ok) return 'Delete failed. Please try again.';
+
+      set({ user: null, isLoggedIn: false });
+
+      return null;
+    } catch {
+      return 'Network error. Please try again.';
+    }
   },
 
   logout: () => set({ user: null, isLoggedIn: false }),
