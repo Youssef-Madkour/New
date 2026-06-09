@@ -1,4 +1,3 @@
-// Zustand/store.ts
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { createCartSlice, type CartSlice } from './slices/cartSlice';
@@ -15,10 +14,27 @@ export const useStore = create<StoreState>()(
     {
       name: 'app-storage',
       partialize: (state) => ({
-        products: state.products,
         user: state.user,
         isLoggedIn: state.isLoggedIn,
       }),
+      onRehydrateStorage: () => (state) => {
+        if (state?.user?.email) {
+          try {
+            const cart = JSON.parse(
+              localStorage.getItem(`cart_${state.user.email}`) || '[]',
+            );
+            state.products = cart;
+          } catch {
+            state.products = [];
+          }
+        }
+      },
     }
   )
 );
+
+useStore.subscribe((state, prev) => {
+  if (state.user?.email && state.products !== prev.products) {
+    localStorage.setItem(`cart_${state.user.email}`, JSON.stringify(state.products));
+  }
+});
