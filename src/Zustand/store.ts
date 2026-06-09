@@ -18,7 +18,6 @@ export const useStore = create<StoreState>()(
         products: state.products,
         user: state.user,
         isLoggedIn: state.isLoggedIn,
-        registeredUsers: state.registeredUsers,
       }),
     }
   )
