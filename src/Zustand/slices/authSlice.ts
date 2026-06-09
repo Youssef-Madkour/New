@@ -1,7 +1,43 @@
+import type { CartItem } from './cartSlice';
+
 export interface User {
   id: string;
   email: string;
   name: string;
+}
+
+interface StoredUser {
+  name: string;
+  email: string;
+  password: string;
+}
+
+const USERS_KEY = 'registered_users';
+
+function loadCart(email: string): CartItem[] {
+  try {
+    return JSON.parse(localStorage.getItem(`cart_${email}`) || '[]');
+  } catch {
+    return [];
+  }
+}
+
+function saveCart(email: string, products: CartItem[]) {
+  localStorage.setItem(`cart_${email}`, JSON.stringify(products));
+}
+
+function getStoredUsers(): StoredUser[] {
+  try {
+    return JSON.parse(localStorage.getItem(USERS_KEY) || '[]');
+  } catch {
+    return [];
+  }
+}
+
+function saveStoredUser(user: StoredUser) {
+  const users = getStoredUsers();
+  users.push(user);
+  localStorage.setItem(USERS_KEY, JSON.stringify(users));
 }
 
 export interface AuthState {
@@ -15,8 +51,8 @@ export interface AuthState {
 }
 
 export const createAuthSlice = (
-  set: (partial: Partial<AuthState>) => void,
-  get: () => AuthState,
+  set: (partial: Partial<AuthState & { products: CartItem[] }>) => void,
+  get: () => AuthState & { products: CartItem[] },
 ): AuthState => ({
   user: null,
   isLoggedIn: false,
@@ -33,9 +69,11 @@ export const createAuthSlice = (
 
       const data = await res.json();
 
+      saveStoredUser({ name, email, password });
       set({
         user: { id: data.id.toString(), name, email },
         isLoggedIn: true,
+        products: loadCart(email),
       });
 
       return null;
@@ -52,13 +90,29 @@ export const createAuthSlice = (
         body: JSON.stringify({ username: email, password }),
       });
 
-      if (!res.ok) return 'Invalid email or password.';
+      if (res.ok) {
+        const stored = getStoredUsers().find((u) => u.email === email);
+        set({
+          user: { id: '', name: stored?.name ?? email, email },
+          isLoggedIn: true,
+          products: loadCart(email),
+        });
+        return null;
+      }
 
-      await res.json();
+      const stored = getStoredUsers().find(
+        (u) => u.email === email && u.password === password,
+      );
+      if (stored) {
+        set({
+          user: { id: '', name: stored.name, email },
+          isLoggedIn: true,
+          products: loadCart(email),
+        });
+        return null;
+      }
 
-      set({ user: { id: '', name: email, email }, isLoggedIn: true });
-
-      return null;
+      return 'Invalid email or password.';
     } catch {
       return 'Network error. Please try again.';
     }
@@ -104,5 +158,9 @@ export const createAuthSlice = (
     }
   },
 
-  logout: () => set({ user: null, isLoggedIn: false }),
+  logout: () => {
+    const { user, products } = get();
+    if (user) saveCart(user.email, products);
+    set({ user: null, isLoggedIn: false, products: [] });
+  },
 });
