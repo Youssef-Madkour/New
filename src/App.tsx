@@ -8,6 +8,7 @@ import ProductDetails from './pages/ProductDetails';
 import Cart from './pages/cart';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
+import Profile from './pages/Profile';
 import NotFound from './pages/NotFound';
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
             <Route path="product" element={<Product />} />
             <Route path="/product/:id" element={<ProductDetails />} />
             <Route path="cart" element={<Cart />} />
+            <Route path="profile" element={<Profile />} />
           </Route>
         </Route>
 

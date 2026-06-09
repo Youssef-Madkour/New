@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useStore } from '../../Zustand/store';
 
 function Header() {
@@ -8,24 +8,23 @@ function Header() {
 
   const user = useStore((state) => state.user);
   const isLoggedIn = useStore((state) => state.isLoggedIn);
-  const logout = useStore((state) => state.logout);
+  const navigate = useNavigate();
 
   return (
     <header className='bg-navy text-white flex items-center justify-between p-2'>
       <h2 className='m-0'>My App</h2>
 
       <nav className='flex items-center gap-4'>
-        <Link to='/'>Home</Link>
-        <Link to='/product'>Shop</Link>
-
         {isLoggedIn && user ? (
           <div className='flex items-center gap-2'>
-            <span>Hello, {user.name}</span>
             <button
-              onClick={() => logout()}
-              className='bg-r5 text-white px-3 py-1 rounded hover:bg-r6'
+              onClick={() => navigate('/profile')}
+              className='flex items-center gap-1 hover:opacity-75 transition'
             >
-              Logout
+              <svg xmlns='http://www.w3.org/2000/svg' className='w-8 h-8' viewBox='0 0 24 24' fill='currentColor'>
+                <path d='M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z'/>
+              </svg>
+              <span className='text-sm font-medium'>{user.name}</span>
             </button>
           </div>
         ) : (
