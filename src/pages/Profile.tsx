@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useStore } from '../Zustand/store';
 
 const Profile = () => {
@@ -75,6 +75,9 @@ const Profile = () => {
 
   return (
     <div style={{ minHeight: '100vh', background: '#0a0f1e', fontFamily: "'DM Sans', sans-serif", display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '48px 24px', gap: '20px' }}>
+      <div style={{ width: '100%', maxWidth: '420px' }}>
+        <Link to='/product' style={{ color: '#60a5fa', fontSize: '13px', textDecoration: 'none' }}>← Back to Shop</Link>
+      </div>
 
       {/* Update card */}
       <div style={{ background: '#111827', borderRadius: '20px', padding: '36px 32px', width: '100%', maxWidth: '420px', animation: 'fadeUp 0.4s ease both' }}>

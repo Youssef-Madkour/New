@@ -8,6 +8,7 @@ interface MenuItem {
 const menuItems: MenuItem[] = [
   { label: 'Home', path: '/' },
   { label: 'Shop', path: '/product' },
+  { label: 'Profile', path: '/profile' },
 ];
 
 function Sider() {
