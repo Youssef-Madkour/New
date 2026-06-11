@@ -1,4 +1,3 @@
-// App.tsx
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Layout from './components/common/Layout';
 import AuthGuard from './components/common/AuthGuard';
@@ -10,8 +9,11 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Profile from './pages/Profile';
 import NotFound from './pages/NotFound';
+import { useCartSync } from './hooks/useCartSync';
 
 function App() {
+  useCartSync();
+
   return (
     <BrowserRouter>
       <Routes>
