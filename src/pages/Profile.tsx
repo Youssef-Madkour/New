@@ -51,83 +51,119 @@ const Profile = () => {
     navigate('/login');
   };
 
+  const inputStyle = {
+    width: '100%',
+    padding: '10px 16px',
+    background: '#1e293b',
+    border: '1px solid rgba(255,255,255,0.08)',
+    borderRadius: '10px',
+    color: '#f1f5f9',
+    fontSize: '14px',
+    outline: 'none',
+    fontFamily: "'DM Sans', sans-serif",
+    boxSizing: 'border-box' as const,
+  };
+
+  const labelStyle = {
+    display: 'block',
+    fontSize: '13px',
+    fontWeight: 500,
+    color: '#94a3b8',
+    marginBottom: '6px',
+    fontFamily: "'DM Sans', sans-serif",
+  };
+
   return (
-    <div className='min-h-screen bg-gy1 flex flex-col items-center py-12 gap-6'>
-      <div className='bg-white rounded-xl shadow-lg p-8 w-full max-w-md'>
-        <h1 className='text-2xl font-bold text-center mb-6 text-navy'>My Profile</h1>
+    <div style={{ minHeight: '100vh', background: '#0a0f1e', fontFamily: "'DM Sans', sans-serif", display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '48px 24px', gap: '20px' }}>
+
+      {/* Update card */}
+      <div style={{ background: '#111827', borderRadius: '20px', padding: '36px 32px', width: '100%', maxWidth: '420px', animation: 'fadeUp 0.4s ease both' }}>
+        <h1 style={{ fontFamily: "'Outfit', sans-serif", fontSize: '26px', fontWeight: 800, textAlign: 'center', marginBottom: '24px', color: '#f1f5f9', letterSpacing: '-0.02em' }}>
+          My Profile
+        </h1>
 
         {updateSuccess && (
-          <p className='bg-green-50 text-green-700 px-4 py-2 rounded mb-4 text-sm text-center'>
+          <p style={{ background: 'rgba(52,211,153,0.1)', border: '1px solid rgba(52,211,153,0.3)', color: '#34d399', padding: '10px 16px', borderRadius: '10px', marginBottom: '16px', fontSize: '13px', textAlign: 'center' }}>
             Profile updated successfully.
           </p>
         )}
 
         {updateError && (
-          <p className='bg-r1 text-r6 px-4 py-2 rounded mb-4 text-sm text-center'>
+          <p style={{ background: 'rgba(248,113,113,0.1)', border: '1px solid rgba(248,113,113,0.3)', color: '#f87171', padding: '10px 16px', borderRadius: '10px', marginBottom: '16px', fontSize: '13px', textAlign: 'center' }}>
             {updateError}
           </p>
         )}
 
-        <form onSubmit={handleUpdate} className='space-y-4'>
+        <form onSubmit={handleUpdate} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
           <div>
-            <label className='block text-sm font-medium text-gy6 mb-1'>Name</label>
+            <label style={labelStyle}>Name</label>
             <input
               type='text'
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className='w-full px-4 py-2 border border-gy3 rounded-lg focus:outline-none focus:ring-2 focus:ring-b6 focus:border-transparent'
+              style={inputStyle}
+              onFocus={(e) => { e.currentTarget.style.borderColor = '#60a5fa'; }}
+              onBlur={(e) => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)'; }}
             />
           </div>
 
           <div>
-            <label className='block text-sm font-medium text-gy6 mb-1'>Email</label>
+            <label style={labelStyle}>Email</label>
             <input
               type='email'
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className='w-full px-4 py-2 border border-gy3 rounded-lg focus:outline-none focus:ring-2 focus:ring-b6 focus:border-transparent'
+              style={inputStyle}
+              onFocus={(e) => { e.currentTarget.style.borderColor = '#60a5fa'; }}
+              onBlur={(e) => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)'; }}
             />
           </div>
 
           <button
             type='submit'
-            className='w-full bg-b6 text-white py-2 rounded-lg hover:bg-b7 transition font-medium'
+            style={{ width: '100%', background: '#60a5fa', color: '#0a0f1e', border: 'none', borderRadius: '10px', padding: '12px', fontFamily: "'Outfit', sans-serif", fontWeight: 700, fontSize: '15px', cursor: 'pointer', transition: 'opacity 0.15s', marginTop: '4px' }}
+            onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.opacity = '0.85'; }}
+            onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.opacity = '1'; }}
           >
             Save Changes
           </button>
         </form>
       </div>
 
-      <div className='bg-white rounded-xl shadow-lg p-8 w-full max-w-md'>
+      {/* Logout + Delete card */}
+      <div style={{ background: '#111827', borderRadius: '20px', padding: '28px 32px', width: '100%', maxWidth: '420px', animation: 'fadeUp 0.4s ease both', animationDelay: '0.05s' }}>
+
         {!confirmLogout ? (
           <button
             onClick={() => setConfirmLogout(true)}
-            className='w-full border border-r5 text-r5 py-2 rounded-lg hover:bg-r1 transition font-medium mb-6'
+            style={{ width: '100%', background: 'transparent', border: '1px solid rgba(248,113,113,0.3)', color: '#f87171', borderRadius: '10px', padding: '11px', fontFamily: "'Outfit', sans-serif", fontWeight: 600, fontSize: '14px', cursor: 'pointer', marginBottom: '24px', transition: 'background 0.15s' }}
+            onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.background = 'rgba(248,113,113,0.08)'; }}
+            onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.background = 'transparent'; }}
           >
             Logout
           </button>
         ) : (
-          <div className='flex gap-3 mb-6'>
+          <div style={{ display: 'flex', gap: '10px', marginBottom: '24px' }}>
             <button
               onClick={handleLogout}
-              className='flex-1 bg-r5 text-white py-2 rounded-lg hover:bg-r6 transition font-medium'
+              style={{ flex: 1, background: '#f87171', color: '#0a0f1e', border: 'none', borderRadius: '10px', padding: '11px', fontFamily: "'Outfit', sans-serif", fontWeight: 700, fontSize: '14px', cursor: 'pointer' }}
             >
               Yes, Logout
             </button>
             <button
               onClick={() => setConfirmLogout(false)}
-              className='flex-1 border border-gy3 text-gy6 py-2 rounded-lg hover:bg-gy1 transition font-medium'
+              style={{ flex: 1, background: 'transparent', border: '1px solid rgba(255,255,255,0.1)', color: '#94a3b8', borderRadius: '10px', padding: '11px', fontFamily: "'Outfit', sans-serif", fontWeight: 600, fontSize: '14px', cursor: 'pointer' }}
             >
               Cancel
             </button>
           </div>
         )}
 
-        <h2 className='text-lg font-bold text-r6 mb-2'>Delete Account</h2>
-        <p className='text-sm text-gy5 mb-4'>This action cannot be undone.</p>
+        <h2 style={{ fontFamily: "'Outfit', sans-serif", fontSize: '16px', fontWeight: 700, color: '#f87171', marginBottom: '6px' }}>Delete Account</h2>
+        <p style={{ fontSize: '13px', color: '#475569', marginBottom: '16px' }}>This action cannot be undone.</p>
 
         {deleteError && (
-          <p className='bg-r1 text-r6 px-4 py-2 rounded mb-4 text-sm text-center'>
+          <p style={{ background: 'rgba(248,113,113,0.1)', border: '1px solid rgba(248,113,113,0.3)', color: '#f87171', padding: '10px 16px', borderRadius: '10px', marginBottom: '16px', fontSize: '13px', textAlign: 'center' }}>
             {deleteError}
           </p>
         )}
@@ -135,27 +171,30 @@ const Profile = () => {
         {!confirmDelete ? (
           <button
             onClick={() => setConfirmDelete(true)}
-            className='w-full border border-r5 text-r5 py-2 rounded-lg hover:bg-r1 transition font-medium'
+            style={{ width: '100%', background: 'transparent', border: '1px solid rgba(248,113,113,0.3)', color: '#f87171', borderRadius: '10px', padding: '11px', fontFamily: "'Outfit', sans-serif", fontWeight: 600, fontSize: '14px', cursor: 'pointer', transition: 'background 0.15s' }}
+            onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.background = 'rgba(248,113,113,0.08)'; }}
+            onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.background = 'transparent'; }}
           >
             Delete My Account
           </button>
         ) : (
-          <div className='flex gap-3'>
+          <div style={{ display: 'flex', gap: '10px' }}>
             <button
               onClick={handleDelete}
-              className='flex-1 bg-r5 text-white py-2 rounded-lg hover:bg-r6 transition font-medium'
+              style={{ flex: 1, background: '#f87171', color: '#0a0f1e', border: 'none', borderRadius: '10px', padding: '11px', fontFamily: "'Outfit', sans-serif", fontWeight: 700, fontSize: '14px', cursor: 'pointer' }}
             >
               Yes, Delete
             </button>
             <button
               onClick={() => setConfirmDelete(false)}
-              className='flex-1 border border-gy3 text-gy6 py-2 rounded-lg hover:bg-gy1 transition font-medium'
+              style={{ flex: 1, background: 'transparent', border: '1px solid rgba(255,255,255,0.1)', color: '#94a3b8', borderRadius: '10px', padding: '11px', fontFamily: "'Outfit', sans-serif", fontWeight: 600, fontSize: '14px', cursor: 'pointer' }}
             >
               Cancel
             </button>
           </div>
         )}
       </div>
+
     </div>
   );
 };

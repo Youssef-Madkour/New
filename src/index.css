@@ -1,7 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=DM+Sans:wght@400;500;600&display=swap');
 @import 'tailwindcss';
 
-@theme 
-{
+@theme {
 --color-gy1: #f3f4f6;
 --color-gy3: #d1d5db;
 --color-gy5:#6b7280;
@@ -17,10 +17,14 @@
 --color-gn6:#16a34a;
 --color-b1: #dbeafe;
 --color-b5:#0ea5e9;
---color-b6: #2563eb;   
+--color-b6: #2563eb;
 --color-b7: #1d4ed8;
 --color-b8: #1e40af;
 --color-b9:#1e3a8a;
 --color-navy: #001529;
- 
-} 
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
